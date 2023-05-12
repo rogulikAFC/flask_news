@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    {% for news_el in news %}
+        <div class="news">
+            <h2 class="news__title"> {{ news_el.title }} </h2>
+            <p class="news__text"> {{ news_el['text'] | truncate(50) }} </p>
+
+            <a href="{{ url_for('news_detail', id=news_el.id) }}" class="btn btn-primary"> Читать далее </a>
+        </div>
+
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+
+    <div id="wrapper">
+        <div class="container my-3">
+          <form action="" method="POST" novalidate>
+            {{ feedback_form.csrf_token }}
+            <div class="form-group">
+              <h1>Форма обратной связи</h1>
+              <label>{{ feedback_form.name.label }}</label>
+              {{ feedback_form.name(class="form-control") }}
+              {% for error in feedback_form.name.errors %}
+                <div class="alert alert-danger" role="alert">
+                  <span>{{ error }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              <label>{{ feedback_form.text.label }}</label>
+              {{ feedback_form.text(class="form-control") }}
+              {% for error in feedback_form.text.errors %}
+                <div class="alert alert-danger" role="alert">
+                  <span>{{ error }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="form-group">
+              <label>{{ feedback_form.email.label }}</label>
+              {{ feedback_form.email(class="form-control") }}
+            </div>
+            <div class="form-group">
+              <label>{{ feedback_form.rating.label }}</label>
+              {{ feedback_form.rating(class="form-control") }}
+            </div>
+            {{ feedback_form.submit(class="btn btn-primary btn-lg") }}
+          </form>
+        </div>
+      </div>
+
+      {% for feedback in feedbacks %}
+        <div class="feedback">
+            <h2 class="feedback__title"> {{ feedback.name }} </h2>
+            <p class="feedback__text"> {{ feedback.text }} </p>
+        </div>
+
+        {% if not loop.last %}
+            <hr>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
