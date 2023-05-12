@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for
 
 from . import app, db
-from .forms import NewsForm
-from .models import Category, News
+from forms import NewsForm
+from models import Category, News
 
 # from . import db, app
 

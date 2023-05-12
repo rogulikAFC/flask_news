@@ -20,11 +20,3 @@ class News(db.Model):
 
     def __repr__(self):
         return f'News {self.id}: ({self.title[:20]}...)'
-
-
-# class Feedback(db.Model):
-#     id = db.Column(db.Integer, primary_key=True, unique=True)
-#     name = db.Column(db.String(255), nullable=False)
-#     text = db.Column(db.Text, nullable=False)
-#     email = db.Column(db.String(64))
-#     rating = db.Column(db.Integer)
